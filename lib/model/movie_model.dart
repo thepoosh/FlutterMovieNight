@@ -5,6 +5,11 @@ class MovieModel {
 
   MovieModel({this.name, this.posterPath});
 
+  @override
+  String toString() {
+    return 'MovieModel{name: $name}';
+  }
+
   String getPosterImage() {
     return poster_base + posterPath;
   }
