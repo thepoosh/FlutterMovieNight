@@ -1,57 +1,63 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter_movie_night/data/PopularRepository.dart';
 import 'package:flutter_movie_night/pages/favorites_screen.dart';
 import 'package:flutter_movie_night/pages/popular_screen.dart';
 import 'package:flutter_movie_night/pages/search_screen.dart';
 
+const popularIcon = IconData(0xe900, fontFamily: 'Fire');
+
 class MovieNightHome extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new _MovieNughtHomeState();
+  State<StatefulWidget> createState() => new _MyStatefulWidgetState();
 }
 
-class _MovieNughtHomeState extends State<MovieNightHome>
-    with SingleTickerProviderStateMixin {
-  TabController _controller;
+class _MyStatefulWidgetState extends State<MovieNightHome> {
+  int _currentIndex = 0;
 
-  var _index;
+  TextStyle _optionsStyle = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 30,
+  );
 
-  @override
-  void initState() {
-    super.initState();
-    this._controller = new TabController(
-      vsync: this,
-      initialIndex: 1,
-      length: 3,
-    );
+  List<Widget> _optionWidgets = [
+    PopularScreen(PopularRepository()),
+    FavoritesScreen(),
+    SearchScreen(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Movie Night"),
-        elevation: 0.7,
-        bottom: new TabBar(
-          controller: _controller,
-          indicatorColor: Colors.white,
-          tabs: <Widget>[
-            new Tab(icon: new Icon(Icons.sentiment_very_satisfied)),
-            new Tab(
-              icon: new Icon(Icons.favorite_border),
-            ),
-            new Tab(icon: new Icon(Icons.search),
-            )
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('BottomNavigationBar Sample'),
       ),
-      body: new TabBarView(
-      controller: _controller,
-        children: <Widget>[
-          new PopularScreen(),
-          new FavoritesScreen(),
-          new SearchScreen(),
-      ],
-
+      body: Center(child: _optionWidgets[_currentIndex]),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(popularIcon),
+            title: Text("Popular"),
+          ),
+          BottomNavigationBarItem(
+            activeIcon: Icon(Icons.favorite),
+            icon: Icon(Icons.favorite_border),
+            title: Text("Favorites"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            title: Text("Search"),
+          ),
+        ],
+        currentIndex: _currentIndex,
+        onTap: _onItemTapped,
       ),
     );
   }

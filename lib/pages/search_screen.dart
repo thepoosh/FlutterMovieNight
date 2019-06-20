@@ -24,7 +24,7 @@ class SearchScreen extends StatelessWidget {
               itemCount: dummyData.length,
               itemBuilder: (context, i) {
                 final movie = dummyData[i];
-                return _buildListTile(context, movie);
+                return _buildSearchTile(context, movie);
               },
             ),
           ),
@@ -33,7 +33,20 @@ class SearchScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildListTile(BuildContext context, MovieModel movie) {
+  Widget _buildSearchTile(BuildContext context, MovieModel movie) {
+    return new SearchTile(
+      movie: movie,
+    );
+  }
+}
+
+class SearchTile extends StatelessWidget {
+  const SearchTile({Key key, this.movie}) : super(key: key);
+
+  final MovieModel movie;
+
+  @override
+  Widget build(BuildContext context) {
     return Card(
       elevation: 8.0,
       margin: EdgeInsets.symmetric(
@@ -54,7 +67,7 @@ class SearchScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          movie.name,
+          movie.title,
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         subtitle: Column(
@@ -63,7 +76,7 @@ class SearchScreen extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    " this is a very long flipping line and I like it a lot even though it takes more than one line",
+                    movie.overview,
                     style: TextStyle(color: Colors.black38),
                     maxLines: 3,
                   ),
@@ -74,8 +87,15 @@ class SearchScreen extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 0.0),
+                  child: new Icon(
+                    Icons.star,
+                    color: Colors.grey,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 0.0),
                   child: Text(
-                    "this is the bottom",
+                    "${movie.rating}",
                     textAlign: TextAlign.start,
                     style: TextStyle(color: Theme.of(context).primaryColor),
                   ),
@@ -86,6 +106,5 @@ class SearchScreen extends StatelessWidget {
         ),
       )),
     );
-//      ;
   }
 }
