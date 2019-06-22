@@ -136,7 +136,9 @@ class MovieModel {
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
     overview = json['overview'];
-    popularity = json['popularity'];
+    var _popularity = json['popularity'];
+
+    popularity = _popularity is int? _popularity.toDouble() : _popularity;
     posterPath = json['poster_path'];
     releaseDate = json['release_date'];
     runtime = json['runtime'];
