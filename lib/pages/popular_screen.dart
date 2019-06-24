@@ -14,7 +14,7 @@ class PopularScreen extends StatefulWidget {
 }
 
 class _PopularScreenState extends State<PopularScreen> {
-  bool isLoading = false;
+  bool isLoading = true;
   List<MovieModel> _movieData = [];
 
   void fetchData() {
@@ -40,8 +40,10 @@ class _PopularScreenState extends State<PopularScreen> {
   }
 
   Widget _getLoading() {
+    print("am loading now");
+
     return Center(
-      child: const CircularProgressIndicator(),
+      child: CircularProgressIndicator(),
     );
   }
 
@@ -68,7 +70,6 @@ class MovieTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // todo: implement movie details
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -77,46 +78,44 @@ class MovieTile extends StatelessWidget {
         );
         print("clicked on ${movie.title}");
       },
-      child: Card(
-        elevation: 3.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            AspectRatio(
-              aspectRatio: 2 / 1.9,
-              child: Image.network(
-                movie.getPosterImage(),
-                fit: BoxFit.fitWidth,
+      child: Column(
+        children: <Widget>[
+          Container(
+            child: Material(
+              elevation: 3.0,
+              child: AspectRatio(
+                aspectRatio: 2 / 1.9,
+                child: Image.network(
+                  movie.getPosterImage(),
+                  fit: BoxFit.fitHeight,
+                ),
               ),
             ),
-            new Padding(
-              padding: EdgeInsets.fromLTRB(4.0, 0.0, 4.0, 2.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 0.0),
-                    child: Center(
-                      child: Text(
-                        movie.title,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontSize: 14.0,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
+          ),
+          new Padding(
+            padding: EdgeInsets.fromLTRB(4.0, 0.0, 4.0, 2.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Center(
+                    child: Text(
+                      movie.title,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

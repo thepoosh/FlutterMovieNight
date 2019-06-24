@@ -13,6 +13,7 @@ class MovieNightApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: "Movie Night",
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.blue,
         accentColor: Colors.blueAccent,

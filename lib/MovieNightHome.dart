@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_movie_night/data/PopularRepository.dart';
-import 'package:flutter_movie_night/pages/favorites_screen.dart';
 import 'package:flutter_movie_night/pages/popular_screen.dart';
 import 'package:flutter_movie_night/pages/search_screen.dart';
 
@@ -16,14 +14,9 @@ class MovieNightHome extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MovieNightHome> {
   int _currentIndex = 0;
 
-  TextStyle _optionsStyle = TextStyle(
-    fontWeight: FontWeight.bold,
-    fontSize: 30,
-  );
-
   List<Widget> _optionWidgets = [
     PopularScreen(PopularRepository()),
-    FavoritesScreen(),
+//    FavoritesScreen(),
     SearchScreen(),
   ];
 
@@ -46,11 +39,11 @@ class _MyStatefulWidgetState extends State<MovieNightHome> {
             icon: Icon(popularIcon),
             title: Text("Popular"),
           ),
-          BottomNavigationBarItem(
-            activeIcon: Icon(Icons.favorite),
-            icon: Icon(Icons.favorite_border),
-            title: Text("Favorites"),
-          ),
+//          BottomNavigationBarItem(
+//            activeIcon: Icon(Icons.favorite),
+//            icon: Icon(Icons.favorite_border),
+//            title: Text("Favorites"),
+//          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
             title: Text("Search"),
